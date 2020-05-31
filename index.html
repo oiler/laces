@@ -68,7 +68,7 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-<div class="h-screen pb-14 bg-right bg-cover" style="background-image:url('bg.svg');">
+<div class="h-screen pb-14 bg-right bg-cover">
 	<!--Nav-->
 	<div class="w-full container mx-auto p-6">
 			
@@ -161,10 +161,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   -->
 <script>
+/* IFFY */
+;(function (window, document, undefined) {
+  'use strict';
+  // IFFY code
+  console.log('IFFY');
+  dataLayer.push({
+    dimension1: '0.0.1',
+  })”
 
-ga('set', 'dimension1', '0.0.1');
-</script>
 
+
+})(window, document);
 
 </body>
 </html>
