@@ -192,6 +192,23 @@
   // dataLayer.push({
   //   "dimension1": '0.0.3',
   // });
+
+//UA event
+gtag('event', 'test', {
+  'event_category': 'test-cat',
+  'event_label': 'test-label',
+  'value': 'test-value'
+});
+
+
+gtag('event', 'test', {
+  'ga4_cat': 'test-cat',
+  'ga4_label': 'test-label',
+  'ga4_value': 'test-value',
+});
+
+
+
 })(window, document);
 </script>
 
