@@ -256,7 +256,7 @@ Object.keys(events).forEach(function(key) {
     var ga_object = ga_assign(event);
     // console.log(ga_object);
     event.addEventListener("click", function() {
-        gtag('event', 'internal_link', {
+        gtag('event', 'pizza2', {
           'internal_class': ga_object['ga_className'],
           'internal_ID': ga_object['ga_elementID'],
           'internal_URL': ga_object['ga_linkURL'],
@@ -265,7 +265,7 @@ Object.keys(events).forEach(function(key) {
       console.log('click');
     });
     event.addEventListener("auxclick", function() {
-        gtag('event', 'internal_link', {
+        gtag('event', 'pizza2', {
           'internal_class': ga_object['ga_className'],
           'internal_ID': ga_object['ga_elementID'],
           'internal_URL': ga_object['ga_linkURL'],
