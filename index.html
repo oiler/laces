@@ -266,28 +266,14 @@ function ga_assign(event) {
 }
 
 Object.keys(events).forEach(function(key) {
-    var event = events[key];
-    var ga_object = ga_assign(event);
+    var this_event = events[key];
+    var ga_object = ga_assign(this_event);
     // console.log(ga_object);
     event.addEventListener("click", function() {
-        gtag('event', 'click_link', {
-          'link_class': ga_object['link_class'],
-          'link_ID': ga_object['link_ID'],
-          'link_URL': ga_object['link_URL'],
-          'link_type': ga_object['link_type'],
-          'link_custom': ga_object['link_custom']
-      });
-      console.log('click');
+        gtag('event', 'click_link', ga_object);
     });
     event.addEventListener("auxclick", function() {
-        gtag('event', 'click_link', {
-          'link_class': ga_object['link_class'],
-          'link_ID': ga_object['link_ID'],
-          'link_URL': ga_object['link_URL'],
-          'link_type': ga_object['link_type'],
-          'link_custom': ga_object['link_custom']
-      });
-      console.log('auxclick');
+        gtag('event', 'click_link', ga_object);
     });
 });
 
