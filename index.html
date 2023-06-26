@@ -231,12 +231,12 @@ function ga_assign(event) {
     var classList_array = classList_string.split(" ");
     var ga_className = classList_array.reduce(get_ga_class);
     
-    var ga_elementId = (event.id === '') ? null : event.id;
+    var ga_elementId = (event.id === '') ? '' : event.id;
     
-    var ga_linkURL = (event.href === '') ? null : event.href;
+    var ga_linkURL = (event.href === '') ? '' : event.href;
     
     if ( typeof event.attributes['data-ga_custom'] !== 'object' ) {
-        var ga_custom = null;
+        var ga_custom = '';
     } else {
         var ga_custom = event.attributes['data-ga_custom'].nodeValue;
     }
