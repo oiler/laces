@@ -174,6 +174,7 @@
 		<!--Footer-->
 		<div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
 			<a id="id4" class="text-gray-500 no-underline hover:no-underline ga-what" href="https://whatsizeshoelaces.com" data-ga_custom="piiza">&copy; whatsizeshoelaces.com</a>
+      <a id="id4" class="text-gray-500 no-underline hover:no-underline ga-what" href="https://google.com" target="_blank" data-ga_custom="googler">google</a>
 		</div>
 		
 	</div>
@@ -217,7 +218,11 @@
 
 'use strict';
 var events = document.querySelectorAll('a');
-// console.log(events);
+console.log(events);
+var this_hostname = location.hostname;
+console.log(this_hostname);
+// console.log(location.hostname);
+
 
 function get_ga_class(previousValue, currentValue, currentIndex, array) {
   // console.log(currentValue);
@@ -229,23 +234,32 @@ function get_ga_class(previousValue, currentValue, currentIndex, array) {
 function ga_assign(event) {
     var classList_string = event.classList.value;
     var classList_array = classList_string.split(" ");
-    var ga_className = classList_array.reduce(get_ga_class);
+    var event_className = classList_array.reduce(get_ga_class);
     
-    var ga_elementId = (event.id === '') ? '' : event.id;
+    var event_elementId = (event.id === '') ? '' : event.id;
     
-    var ga_linkURL = (event.href === '') ? '' : event.href;
+    var event_linkURL = (event.href === '') ? '' : event.href;
+    
+    var event_hostname = (event.hostname === '') ? '' : event.hostname;
+    var event_link_type = '';
+    if( event_hostname == this_hostname ) {
+        event_link_type = 'internal';
+    } else {
+        event_link_type = 'external';
+    }
     
     if ( typeof event.attributes['data-ga_custom'] !== 'object' ) {
-        var ga_custom = '';
+        var event_custom_attr = '';
     } else {
-        var ga_custom = event.attributes['data-ga_custom'].nodeValue;
+        var event_custom_attr = event.attributes['data-ga_custom'].nodeValue;
     }
     
     var output = {
-        "link_class": ga_className,
-        "link_ID": ga_elementId,
-        "link_URL": ga_linkURL,
-        "link_custom": ga_custom
+        "link_class": event_className,
+        "link_ID": event_elementId,
+        "link_URL": event_linkURL,
+        "link_type": event_link_type,
+        "link_custom": event_custom_attr
     }
     // console.log(output);
     return output;
@@ -256,20 +270,22 @@ Object.keys(events).forEach(function(key) {
     var ga_object = ga_assign(event);
     // console.log(ga_object);
     event.addEventListener("click", function() {
-        gtag('event', 'pizza2', {
-          'internal_class': ga_object['link_class'],
-          'internal_ID': ga_object['link_ID'],
-          'internal_URL': ga_object['link_URL'],
-          'internal_custom': ga_object['link_custom']
+        gtag('event', 'click_link', {
+          'link_class': ga_object['link_class'],
+          'link_ID': ga_object['link_ID'],
+          'link_URL': ga_object['link_URL'],
+          'link_type': ga_object['link_type'],
+          'link_custom': ga_object['link_custom']
       });
       console.log('click');
     });
     event.addEventListener("auxclick", function() {
-        gtag('event', 'pizza2', {
-          'internal_class': ga_object['link_class'],
-          'internal_ID': ga_object['link_ID'],
-          'internal_URL': ga_object['link_URL'],
-          'internal_custom': ga_object['link_custom']
+        gtag('event', 'click_link', {
+          'link_class': ga_object['link_class'],
+          'link_ID': ga_object['link_ID'],
+          'link_URL': ga_object['link_URL'],
+          'link_type': ga_object['link_type'],
+          'link_custom': ga_object['link_custom']
       });
       console.log('auxclick');
     });
