@@ -257,19 +257,19 @@ Object.keys(events).forEach(function(key) {
     // console.log(ga_object);
     event.addEventListener("click", function() {
         gtag('event', 'pizza2', {
-          'internal_class': ga_object['ga_className'],
-          'internal_ID': ga_object['ga_elementID'],
-          'internal_URL': ga_object['ga_linkURL'],
-          'internal_custom': ga_object['ga_custom']
+          'internal_class': ga_object['link_class'],
+          'internal_ID': ga_object['link_ID'],
+          'internal_URL': ga_object['link_URL'],
+          'internal_custom': ga_object['link_custom']
       });
       console.log('click');
     });
     event.addEventListener("auxclick", function() {
         gtag('event', 'pizza2', {
-          'internal_class': ga_object['ga_className'],
-          'internal_ID': ga_object['ga_elementID'],
-          'internal_URL': ga_object['ga_linkURL'],
-          'internal_custom': ga_object['ga_custom']
+          'internal_class': ga_object['link_class'],
+          'internal_ID': ga_object['link_ID'],
+          'internal_URL': ga_object['link_URL'],
+          'internal_custom': ga_object['link_custom']
       });
       console.log('auxclick');
     });
