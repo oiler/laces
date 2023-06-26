@@ -231,18 +231,21 @@ function ga_assign(event) {
     var classList_array = classList_string.split(" ");
     var ga_className = classList_array.reduce(get_ga_class);
     
-    var ga_elementId = (event.id === '') ? '' : event.id;
+    var ga_elementId = (event.id === '') ? null : event.id;
+    
+    var ga_linkURL = (event.href === '') ? null : event.href;
     
     if ( typeof event.attributes['data-ga_custom'] !== 'object' ) {
-        var ga_custom = '';
+        var ga_custom = null;
     } else {
         var ga_custom = event.attributes['data-ga_custom'].nodeValue;
     }
     
     var output = {
-        "ga_className": ga_className,
-        "ga_elementId": ga_elementId,
-        "ga_custom": ga_custom
+        "link_class": ga_className,
+        "link_ID": ga_elementId,
+        "link_URL": ga_linkURL,
+        "link_custom": ga_custom
     }
     // console.log(output);
     return output;
@@ -252,22 +255,8 @@ Object.keys(events).forEach(function(key) {
     var event = events[key];
     var ga_object = ga_assign(event);
     console.log(ga_object);
-    // console.log( ga_object['ga_id'], ga_object['ga_class'], ga_object['ga_custom'] );
     event.addEventListener("click", function (event) {
-      gtag('event', 'ga4_gtag', {
-          'link_class': ga_object['ga_className'],
-          'link_ID': ga_object['ga_elementID'],
-          'link_custom': ga_object['ga_custom']
-      });
-        // ga(
-        //     'send',
-        //     'event',
-        //     ga_category,
-        //     ga_action,
-        //     ga_label,
-        //     {nonInteraction: false}
-        // );
-        // console.log( 'click', ga_class, ga_id, ga_text );
+        gtag('event', 'ga4_gtag', ga_object);
     });
 });
 
