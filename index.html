@@ -254,14 +254,24 @@ function ga_assign(event) {
 Object.keys(events).forEach(function(key) {
     var event = events[key];
     var ga_object = ga_assign(event);
-    console.log(ga_object);
-    event.addEventListener("click", function (event) {
+    // console.log(ga_object);
+    event.addEventListener("click", function() {
         gtag('event', 'internal_link', {
           'internal_class': ga_object['ga_className'],
           'internal_ID': ga_object['ga_elementID'],
           'internal_URL': ga_object['ga_linkURL'],
           'internal_custom': ga_object['ga_custom']
       });
+      console.log('click');
+    });
+    event.addEventListener("auxclick", function() {
+        gtag('event', 'internal_link', {
+          'internal_class': ga_object['ga_className'],
+          'internal_ID': ga_object['ga_elementID'],
+          'internal_URL': ga_object['ga_linkURL'],
+          'internal_custom': ga_object['ga_custom']
+      });
+      console.log('auxclick');
     });
 });
 
