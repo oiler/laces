@@ -257,10 +257,10 @@ Object.keys(events).forEach(function(key) {
     console.log(ga_object);
     event.addEventListener("click", function (event) {
         gtag('event', 'internal_link', {
-          'link_class': ga_object['ga_className'],
-          'link_ID': ga_object['ga_elementID'],
-          'link_URL': ga_object['ga_linkURL'],
-          'link_custom': ga_object['ga_custom']
+          'internal_class': ga_object['ga_className'],
+          'internal_ID': ga_object['ga_elementID'],
+          'internal_URL': ga_object['ga_linkURL'],
+          'internal_custom': ga_object['ga_custom']
       });
     });
 });
