@@ -173,8 +173,8 @@
 		
 		<!--Footer-->
 		<div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-			<a id="id4" class="text-gray-500 no-underline hover:no-underline ga-what" href="https://whatsizeshoelaces.com" data-ga_custom="piiza">&copy; whatsizeshoelaces.com</a>
-      <a id="id4" class="text-gray-500 no-underline hover:no-underline ga-what" href="https://google.com" target="_blank" data-ga_custom="googler">google</a>
+			<a id="id4" class="text-gray-500 no-underline hover:no-underline ga-what" href="https://whatsizeshoelaces.com" data-ga-custom="piiza">&copy; whatsizeshoelaces.com</a>
+      <a id="id5" class="text-gray-500 no-underline hover:no-underline ga-what" href="https://google.com" target="_blank" data-ga-custom="googler">google</a>
 		</div>
 		
 	</div>
@@ -218,50 +218,46 @@
 
 'use strict';
 var events = document.querySelectorAll('a');
-console.log(events);
 var this_hostname = location.hostname;
-console.log(this_hostname);
-// console.log(location.hostname);
-
 
 function get_ga_class(previousValue, currentValue, currentIndex, array) {
-  // console.log(currentValue);
-  if( currentValue.substring(0,3) == 'ga-' ) {
-    return currentValue;
-  }
+    var output = '';
+    if( currentValue.substring(0,3) == 'ga-' ) {
+        output = currentValue.slice(3);
+        return output;
+    }
 }
 
 function ga_assign(event) {
+    // assign link_class
     var classList_string = event.classList.value;
     var classList_array = classList_string.split(" ");
     var event_className = classList_array.reduce(get_ga_class);
-    
+    // assign link_ID
     var event_elementId = (event.id === '') ? '' : event.id;
-    
+    // assign link_URL    
     var event_linkURL = (event.href === '') ? '' : event.href;
-    
+    // assign link_type
+    var event_linkType = '';
     var event_hostname = (event.hostname === '') ? '' : event.hostname;
-    var event_link_type = '';
     if( event_hostname == this_hostname ) {
-        event_link_type = 'internal';
+        event_linkType = 'internal';
     } else {
-        event_link_type = 'external';
+        event_linkType = 'external';
+    }
+    // assign link_custom
+    if ( typeof event.attributes['data-ga-custom'] !== 'object' ) {
+        var event_customAttr = '';
+    } else {
+        var event_customAttr = event.attributes['data-ga-custom'].nodeValue;
     }
     
-    if ( typeof event.attributes['data-ga_custom'] !== 'object' ) {
-        var event_custom_attr = '';
-    } else {
-        var event_custom_attr = event.attributes['data-ga_custom'].nodeValue;
-    }
-    
-    var output = {
-        "link_class": event_className,
-        "link_ID": event_elementId,
-        "link_URL": event_linkURL,
-        "link_type": event_link_type,
-        "link_custom": event_custom_attr
-    }
-    // console.log(output);
+    var output = {};
+    if( typeof(event_className) == 'string' && event_className !== '' ) { output["link_class"] = event_className; }
+    if( typeof(event_elementId) == 'string' && event_elementId !== '' ) { output["link_ID"] = event_elementId; }
+    if( typeof(event_linkURL) == 'string' && event_linkURL !== '' ) { output["link_URL"] = event_linkURL; }
+    if( typeof(event_linkType) == 'string' && event_linkType !== '' ) { output["link_type"] = event_linkType; }
+    if( typeof(event_customAttr) == 'string' && event_customAttr !== '' ) { output["link_custom"] = event_customAttr; }
     return output;
 }
 
@@ -269,16 +265,13 @@ Object.keys(events).forEach(function(key) {
     var this_event = events[key];
     var ga_object = ga_assign(this_event);
     // console.log(ga_object);
-    event.addEventListener("click", function() {
+    this_event.addEventListener("click", function() {
         gtag('event', 'click_link', ga_object);
     });
-    event.addEventListener("auxclick", function() {
+    this_event.addEventListener("auxclick", function() {
         gtag('event', 'click_link', ga_object);
     });
 });
-
-// ga("send","event","modal","shown","war_game_2022_v0",{nonInteraction: false});
-
 
 })(window, document);
 </script>
