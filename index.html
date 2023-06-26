@@ -254,7 +254,7 @@ Object.keys(events).forEach(function(key) {
     console.log(ga_object);
     // console.log( ga_object['ga_id'], ga_object['ga_class'], ga_object['ga_custom'] );
     event.addEventListener("click", function (event) {
-      gtag('event', 'test', {
+      gtag('event', 'ga4_gtag', {
           'link_class': ga_object['ga_className'],
           'link_ID': ga_object['ga_elementID'],
           'link_custom': ga_object['ga_custom']
